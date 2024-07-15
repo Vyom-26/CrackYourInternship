@@ -1,0 +1,56 @@
+Question Link : https://leetcode.com/problems/find-the-duplicate-number/description/
+
+Code:
+
+#pragma GCC optimize("03", "unroll-loops")
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        // //we can solve this using a unordered map
+        // //this method doesn't meet the criteria mentioned in the problem that is:
+        // //You must solve the problem without modifying the array nums and uses only constant extra space.
+        // unordered_map<int, int>mp;
+        // sort(nums.begin(), nums.end());
+        // for(auto it:nums){
+        //     mp[it]++;
+        //     if(mp[it]==2){
+        //         return it;
+        //         break;
+        //     }
+        // }
+        // return nums[nums.size()-1];
+
+        //another approach
+        // int n=nums.size();
+        // for(int i=0;i<n-1;i++){
+        //   for(int j=i+1;j<n;j++){
+        //     if((nums[i]^nums[j])==0){
+        //       return nums[i];
+        //     }
+        //   }
+        // }
+        // return 0;
+
+        //this above will cause TLE because of O(n^2) time complexity
+
+        //another approach using bit manipulation
+        vector<int>ans = nums;
+        sort(ans.begin(), ans.end());
+        int n = ans.size();
+
+        for(int i=0;i<n-1;i++){
+            int XOR = ans[i]^ans[i+1]; 
+            if(XOR==0){
+                return ans[i];
+            }
+        }
+        return 0;
+        //The code fulfills the requirement of not modifying the original array but does not guarantee constant extra space due to the potential overhead of the sort function. Consider alternative solutions like the cyclic sort or hashing approach for guaranteed constant space complexity and improved time efficiency.
+    }
+};
+auto init = [](){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 'c';
+}();
