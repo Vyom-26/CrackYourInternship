@@ -1,0 +1,118 @@
+Question Link : https://leetcode.com/problems/set-matrix-zeroes/description/
+
+
+
+Code:
+
+#include <bits/stdc++.h>
+#define ll long long
+#define MOD 1000000007
+#define arr_inp  long long arr[n]; for(long long i=0;i<n;i++){cin>>arr[i];}
+#define vec_inp vector<long long>arr(n); for(int i=0;i<n;i++){ int x; cin>>x; arr[i] = x;}
+#define arr_vec_output for(int i=0;i<n;i++){ cout<<arr[i]<<" ";} cout<<endl;
+#define map_arr_inp  unordered_map<long long, long long>mp; long long arr[n]; for(long long i=0;i<n;i++){cin>>arr[i]; mp[arr[i]]++;}
+#define str_inp string s; cin>>s;
+#define vecint(arr) vector<int>arr
+#define vecll(arr) vector<long long>arr
+#define umpint(mp) unordered_map<int, int>mp
+#define umpll(mp) unordered_map<long long, long long>mp
+#define mpint(mp) map<int, int>mp
+#define mpll(mp) map<long long, long long>mp
+#define pb push_back
+#define ppb pop_back
+#define w(x) long long x; cin>>x; while(x--)
+#define out_YES cout<<"YES\n";
+#define out_Yes cout<<"Yes\n";
+#define out_yes cout<<"yes\n";
+#define out_NO cout<<"NO\n";
+#define out_No cout<<"No\n";
+#define out_no cout<<"no\n";
+#define print(v) ({for(auto x:v) cout<<x<<" ";})
+#define sort(v) sort(v.begin(),v.end())
+#define reverse(v) reverse(v.begin(), v.end())
+#define vmax(v)  *max_element(v.begin(),v.end())
+#define vmin(v) *min_element(v.begin(),v.end())
+#define acc(v)  accumulate(v.begin(), v.end(), 0)
+#define f0(i, n) for(int i=0;i<n;i++)
+#define f1(i, n) for(int i=1;i<n;i++)
+#define fn2(i, n) for(int i=n-2;i>=0;i--)
+#define dis(x) cout<<x<<" "
+#define rt return true
+#define rf return false
+#define fio ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#pragma GCC optimize("03", "unroll-loops")
+using namespace std;
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        int m = matrix[0].size();
+        bool firstRow = false, firstCol = false;
+
+        // Check if the first row contains zero
+        for(int j = 0; j < m; j++) {
+            if(matrix[0][j] == 0) {
+                firstRow = true;
+                break;
+            }
+        }
+
+        // Check if the first column contains zero
+        for(int i = 0; i < n; i++) {
+            if(matrix[i][0] == 0) {
+                firstCol = true;
+                break;
+            }
+        }
+
+        // Mark rows and columns to be set to zero
+        for(int i = 1; i < n; i++) {
+            for(int j = 1; j < m; j++) {
+                if(matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+
+        // Set marked rows to zero
+        for(int i = 1; i < n; i++) {
+            if(matrix[i][0] == 0) {
+                for(int j = 1; j < m; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        // Set marked columns to zero
+        for(int j = 1; j < m; j++) {
+            if(matrix[0][j] == 0) {
+                for(int i = 1; i < n; i++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        // Set first row to zero if needed
+        if(firstRow) {
+            for(int j = 0; j < m; j++) {
+                matrix[0][j] = 0;
+            }
+        }
+
+        // Set first column to zero if needed
+        if(firstCol) {
+            for(int i = 0; i < n; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+    }
+};
+auto init = []()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 'c';
+}
+();
