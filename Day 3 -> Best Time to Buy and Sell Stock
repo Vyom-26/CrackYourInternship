@@ -1,0 +1,28 @@
+Question Link :  https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
+
+
+
+Code :
+
+
+#pragma GCC optimize("03", "unroll-loops")
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int minimum = prices[0];
+        int n = prices.size();
+        int profit = 0;
+        for(int i=1;i<n;i++){
+            int money_left = prices[i]-minimum;
+            profit = max(profit, money_left);
+            minimum = min(minimum, prices[i]);
+        }
+        return profit;
+    }
+};
+auto init = [](){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 'c';
+}();
