@@ -1,0 +1,83 @@
+Question Link :  https://leetcode.com/problems/spiral-matrix/
+
+
+
+Code :
+
+
+#include <bits/stdc++.h>
+#define ll long long
+#define MOD 1000000007
+#define arr_inp  long long arr[n]; for(long long i=0;i<n;i++){cin>>arr[i];}
+#define vec_inp vector<long long>arr(n); for(int i=0;i<n;i++){ int x; cin>>x; arr[i] = x;}
+#define arr_vec_output for(int i=0;i<n;i++){ cout<<arr[i]<<" ";} cout<<endl;
+#define map_arr_inp  unordered_map<long long, long long>mp; long long arr[n]; for(long long i=0;i<n;i++){cin>>arr[i]; mp[arr[i]]++;}
+#define str_inp string s; cin>>s;
+#define V(i) vector<int>
+#define pb push_back
+#define w(x) long long x; cin>>x; while(x--)
+#define out_YES cout<<"YES\n";
+#define out_Yes cout<<"Yes\n";
+#define out_yes cout<<"yes\n";
+#define out_NO cout<<"NO\n";
+#define out_No cout<<"No\n";
+#define out_no cout<<"no\n";
+#define print(v) ({for(auto x:v) cout<<x<<" ";})
+#define sort(v) sort(v.begin(),v.end())
+#define reverse(v) reverse(v.begin(), v.end())
+#define vmax(v)  *max_element(v.begin(),v.end())
+#define vmin(v) *min_element(v.begin(),v.end())
+#define acc(v)  accumulate(v.begin(), v.end(), 0)
+#define f(n) for(int i=0;i<n;i++)
+#define dis(x) cout<<x<<" "
+#define rt return true
+#define rf return false
+#define fio ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#pragma GCC optimize("03", "unroll-loops")
+using namespace std;
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int row = matrix.size();
+        int col = matrix[0].size();
+        vector<int>ans;
+        int total = row*col;
+        int current = 0;
+        int startRow = 0, startCol = 0;
+        int endRow = row-1, endCol = col-1;
+
+        while(current<total){
+            //first print the top row
+            for(int i=startCol;i<=endCol && current<total;i++){
+                ans.pb(matrix[startRow][i]);
+                current++;
+            }
+            startRow++;
+            //print the right most col
+            for(int i=startRow;i<=endRow && current<total;i++){
+                ans.pb(matrix[i][endCol]);
+                current++;
+            }
+            endCol--;
+            //print the bottom row
+            for(int i=endCol;i>=startCol && current<total;i--){
+                ans.pb(matrix[endRow][i]);
+                current++;
+            }
+            endRow--;
+            //print the left most col
+            for(int i=endRow;i>=startRow && current<total;i--){
+                ans.pb(matrix[i][startCol]);
+                current++;
+            }
+            startCol++;
+        }
+        return ans;
+    }
+};
+auto init = [](){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 'c';
+}();
