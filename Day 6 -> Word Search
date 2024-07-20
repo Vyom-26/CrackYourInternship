@@ -1,0 +1,77 @@
+Question Link :   https://leetcode.com/problems/word-search/
+ 
+
+
+
+Code : 
+
+
+#pragma GCC optimize("03", "unroll-loops")
+class Solution {
+public:
+    bool findAns(int i, int j, int n, int m, int found_idx, vector<vector<char>>&board, string &word){
+        //check for 4 directions respectively.
+        //if found in any, then call the next recursion call from that direction.
+        //so It again checks for all other 4 directions
+        //here
+        //i = row, j = column, n = no.of rows, m = no.of cols
+        
+        //base condition
+        if(found_idx==word.size()){
+            return true;
+        }
+
+        //now check for boundaries
+        if(i<0 || j<0 || i>=n || j>=m){
+            return false;
+        }
+
+        //check if the word is not there 
+        if(board[i][j]!=word[found_idx] || board[i][j] == '!'){
+            return false;
+        }
+
+        //to prevent using the same character more than once
+        char used = board[i][j];
+        board[i][j] = '!';
+
+        //check top
+        bool check_top = findAns(i-1, j, n, m, found_idx+1, board, word);
+        //check down
+        bool check_down = findAns(i+1, j, n, m, found_idx+1, board, word);
+        //check right
+        bool check_right = findAns(i, j+1, n, m, found_idx+1, board, word);
+        //check left
+        bool check_left = findAns(i, j-1, n, m, found_idx+1, board, word);
+
+        //revert the change done for the character
+        board[i][j] = used;
+
+        if(check_top || check_down || check_right || check_left){
+            return true;
+        }
+        return false;
+
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        int n = board.size();
+        int m = board[0].size();
+        int found_idx = 0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(board[i][j]==word[found_idx]){
+                    if(findAns(i, j, n, m, found_idx, board, word)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+};
+auto init = [](){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 'c';
+}();
